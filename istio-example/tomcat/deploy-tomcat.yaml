@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-tomcat-v1
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: tomcat-v1
+      service: tomcat
+  template:
+    metadata:
+      labels:
+        app: tomcat-v1
+        service: tomcat
+    spec:
+      containers:
+      - name: tomcat-v1
+        image: harbor.dcos.ncmp.unicom.local/tfs/busybox:1.28
+        imagePullPolicy: IfNotPresent
+        command: ["/bin/sh","-c","echo 'hello tomcat v1' > /var/www/index.html; httpd -f -p 8080 -h /var/www/"]
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-tomcat-v2
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: tomcat-v2
+      service: tomcat
+  template:
+    metadata:
+      labels:
+        app: tomcat-v2
+        service: tomcat
+    spec:
+      containers:
+      - name: tomcat-v2
+        image: harbor.dcos.ncmp.unicom.local/tfs/busybox:1.28
+        imagePullPolicy: IfNotPresent
+        command: ["/bin/sh","-c","echo 'hello tomcat v2' > /var/www/index.html; httpd -f -p 8080 -h /var/www/"]

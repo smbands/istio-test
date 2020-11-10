@@ -1,0 +1,13 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: dr-httpd
+spec:
+  host: httpd-svc.httpd.svc.cluster.local
+  subsets:
+  - name: v1
+    labels:
+      app: httpd-v1
+  - name: v2
+    labels:
+      app: httpd-v2

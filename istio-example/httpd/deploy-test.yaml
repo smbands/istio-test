@@ -1,0 +1,20 @@
+##########此yaml文件为测试使用，并不在案例中起重要作用,非必要部署项#########
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: client
+  template:
+    metadata:
+      labels:
+        app: client
+    spec:
+      containers:
+      - name: client
+        image: harbor.dcos.ncmp.unicom.local/tfs/busybox:1.28
+        imagePullPolicy: IfNotPresent
+        command: ["/bin/sh","-c","sleep 36000"]

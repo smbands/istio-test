@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-httpd-v1
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: httpd-v1
+      service: httpd
+  template:
+    metadata:
+      labels:
+        app: httpd-v1
+        service: httpd
+    spec:
+      containers:
+      - name: httpd-v1
+        image: harbor.dcos.ncmp.unicom.local/tfs/busybox:1.28
+        imagePullPolicy: IfNotPresent
+        command: ["/bin/sh","-c","echo 'hello httpd v1' > /var/www/index.html; httpd -f -p 8080 -h /var/www/"]
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-httpd-v2
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: httpd-v2
+      service: httpd
+  template:
+    metadata:
+      labels:
+        app: httpd-v2
+        service: httpd
+    spec:
+      containers:
+      - name: httpd-v2
+        image: harbor.dcos.ncmp.unicom.local/tfs/busybox:1.28
+        imagePullPolicy: IfNotPresent
+        command: ["/bin/sh","-c","echo 'hello httpd v2' > /var/www/index.html; httpd -f -p 8080 -h /var/www/"]
